@@ -1,0 +1,20 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "Liri is a command line program that pulls info from the Online Movie Database API, Spotify API, and Bands in Town API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhawkins01/liri-node-app.git"
+  },
+  "keywords": [],
+  "author": "Dave Hawkins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhawkins01/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/dhawkins01/liri-node-app#readme"
+}
