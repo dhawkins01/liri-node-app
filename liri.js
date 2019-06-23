@@ -28,6 +28,23 @@ var command = process.argv[2];
 function concertThis() {
     // code for concertThis functions goes here
 
+    // create an empty variable with the band/artist name
+    var artist = "";
+
+    // for loop to handle artist names with more than one word
+    for (i = 3; i < process.argv.length; i++) {
+        if (i > 3  && i < process.argv.length) {
+            artist = artist + "%20" + process.argv[i];
+        }
+        else {
+            artist = process.argv[i];
+        }
+    }
+    // build the url for the bands in town api for axios
+    queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+    // console.log(queryURL);
+    
+
 }
 
 function spotifyThisSong() {
