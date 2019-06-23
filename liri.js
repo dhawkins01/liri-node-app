@@ -24,6 +24,7 @@ var command = process.argv[2];
 
 function concertThis() {
     // code for concertThis functions goes here
+    
 }
 
 function spotifyThisSong() {
