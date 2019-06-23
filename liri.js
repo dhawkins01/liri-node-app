@@ -11,9 +11,10 @@ var keys = require("./keys.js");
 var axios = require("axios");
 // moment package
 var moment = require('moment');
-
+// spotify package
+var Spotify = require('node-spotify-api');
 // access the keys information for spotify
-// var spotify = new Spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
 
 // liri.js needs to be able to hold the following commands:
 // - concert-this
@@ -35,7 +36,7 @@ function concertThis() {
 
     // for loop to handle artist names with more than one word
     for (i = 3; i < process.argv.length; i++) {
-        if (i > 3  && i < process.argv.length) {
+        if (i > 3 && i < process.argv.length) {
             artist = artist + "%20" + process.argv[i];
         }
         else {
@@ -48,7 +49,7 @@ function concertThis() {
 
     // start our Axios call
     axios.get(queryUrl).then(
-        function(response) {
+        function (response) {
             // create a for loop to display all the information in the data array that is returned from the API
 
             for (i = 0; i < response.data.length; i++) {
@@ -61,33 +62,63 @@ function concertThis() {
             }
 
         })
-        .catch(function(error) {
+        .catch(function (error) {
             if (error.response) {
-              // The request was made and the server responded with a status code
-              // that falls out of the range of 2xx
-              console.log("---------------Data---------------");
-              console.log(error.response.data);
-              console.log("---------------Status---------------");
-              console.log(error.response.status);
-              console.log("---------------Status---------------");
-              console.log(error.response.headers);
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log("---------------Data---------------");
+                console.log(error.response.data);
+                console.log("---------------Status---------------");
+                console.log(error.response.status);
+                console.log("---------------Status---------------");
+                console.log(error.response.headers);
             } else if (error.request) {
-              // The request was made but no response was received
-              // `error.request` is an object that comes back with details pertaining to the error that occurred.
-              console.log(error.request);
+                // The request was made but no response was received
+                // `error.request` is an object that comes back with details pertaining to the error that occurred.
+                console.log(error.request);
             } else {
-              // Something happened in setting up the request that triggered an Error
-              console.log("Error", error.message);
+                // Something happened in setting up the request that triggered an Error
+                console.log("Error", error.message);
             }
             console.log(error.config);
-          });
-    
+        });
+
 
 
 }
 
 function spotifyThisSong() {
     // code for spotifyThisSong goes here
+
+    // variable to hold the song name
+    var songName = "";
+    // check to see if no song is entered, default to "i saw the sign" by ace of base
+    if (process.argv[3] === undefined) {
+        songName = "the sign ace of base";
+    }
+    else {
+        // create a for loop to handle multi word song names
+        for (i = 3; i < process.argv.length; i++) {
+            songName += process.argv[i] + " ";
+
+        }
+    }
+    // add the single quotes to the song name as required by the spotify api
+    songName = "'" + songName + "'";
+    // console.log(songName);
+    // Grab the data from the spotify npm package api
+    spotify.search({ type: 'track', query: songName }, function (err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+
+        console.log("**********Spotify-This-Song**********");
+        console.log("Artist: " + data.tracks.items[0].artists[0].name);
+        console.log("Song Name: " + data.tracks.items[0].name);
+        console.log("Preview: " + data.tracks.items[3].preview_url);
+        console.log("Album: " + data.tracks.items[0].album.name);
+        console.log("*************************************");
+    });
 }
 
 function movieThis() {
