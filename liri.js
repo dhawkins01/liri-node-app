@@ -7,8 +7,11 @@ require("dotenv").config();
 // import the keys.js file
 var keys = require("./keys.js");
 
-// access the keys inmormation for spotify
-var spotify = new Spotify(keys.spotify);
+// grab the axios package
+var axios = require("axios");
+
+// access the keys information for spotify
+// var spotify = new Spotify(keys.spotify);
 
 // liri.js needs to be able to hold the following commands:
 // - concert-this
@@ -19,7 +22,7 @@ var spotify = new Spotify(keys.spotify);
 // make a variable to hold the command
 var command = process.argv[2];
 
-// Here we will create a function to fun each command
+// Here we will create a function to run each command
 //////////////////////////////////////////////////////
 
 function concertThis() {
@@ -33,6 +36,43 @@ function spotifyThisSong() {
 
 function movieThis() {
     // code for movieThis goes here
+
+    // create an empty variable for holding the movie name
+    var movieName = "";
+
+    // create a for loop to handle movie titles with more than one word
+    for (i = 3; i < process.argv.length; i++) {
+        movieName += process.argv[i] + "+";
+    }
+    
+    // build the url to access OMDB api with Axios
+    var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+
+    // use axios to pull the data from the omdb api
+    axios.get(queryUrl).then(
+        function(response) {
+          console.log("Release Year: " + response.data.Year);
+        })
+        .catch(function(error) {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log("---------------Data---------------");
+            console.log(error.response.data);
+            console.log("---------------Status---------------");
+            console.log(error.response.status);
+            console.log("---------------Status---------------");
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an object that comes back with details pertaining to the error that occurred.
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
 }
 
 function doWhatItSays() {
