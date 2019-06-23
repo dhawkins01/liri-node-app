@@ -55,7 +55,9 @@ function concertThis() {
                 console.log("**********Concert-This**********");
                 console.log("Name of Venue: " + response.data[i].venue.name);
                 console.log("Venue Locaction: " + response.data[i].venue.city + ", " + response.data[i].venue.region);
-                console.log("Date: " + response.data[i].datetime);
+                // use moment to format the date
+                var time = moment(response.data[i].datetime).format("MM/DD/YYYY");
+                console.log("Date: " + time);
             }
 
         })
