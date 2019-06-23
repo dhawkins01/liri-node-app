@@ -9,6 +9,8 @@ var keys = require("./keys.js");
 
 // grab the axios package
 var axios = require("axios");
+// moment package
+var moment = require('moment');
 
 // access the keys information for spotify
 // var spotify = new Spotify(keys.spotify);
@@ -47,7 +49,15 @@ function concertThis() {
     // start our Axios call
     axios.get(queryUrl).then(
         function(response) {
-            console.log(response);
+            // create a for loop to display all the information in the data array that is returned from the API
+
+            for (i = 0; i < response.data.length; i++) {
+                console.log("**********Concert-This**********");
+                console.log("Name of Venue: " + response.data[i].venue.name);
+                console.log("Venue Locaction: " + response.data[i].venue.city + ", " + response.data[i].venue.region);
+                console.log("Date: " + response.data[i].datetime);
+            }
+
         })
         .catch(function(error) {
             if (error.response) {
