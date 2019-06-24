@@ -12,9 +12,14 @@ var axios = require("axios");
 // moment package
 var moment = require('moment');
 // spotify package
+
 var Spotify = require('node-spotify-api');
+// filesystem package
+var fs = require("fs");
 // access the keys information for spotify
 var spotify = new Spotify(keys.spotify);
+
+
 
 // liri.js needs to be able to hold the following commands:
 // - concert-this
@@ -177,6 +182,37 @@ function movieThis() {
 
 function doWhatItSays() {
     // code for doWhatItSays goes here
+
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        if (error) {
+            return console.log(error);
+        }
+        // get the data from random.txt and turn it into an array
+        var dataArray = data.split(",");
+        var randomCommand = dataArray[0];
+        var randomSearch = dataArray[1];
+        // console.log(randomCommand);
+        // console.log(randomSearch);
+        
+        // check the command, then run the appropriate api
+
+        if (randomCommand === "spotify-this-song"){
+            
+            spotify.search({ type: 'track', query: randomSearch }, function (err, song) {
+                if (err) {
+                    return console.log('Error occurred: ' + err);
+                }
+        
+                console.log("**********Spotify-This-Song**********");
+                console.log("Artist: " + song.tracks.items[0].artists[0].name);
+                console.log("Song Name: " + song.tracks.items[0].name);
+                console.log("Preview: " + song.tracks.items[3].preview_url);
+                console.log("Album: " + song.tracks.items[0].album.name);
+                console.log("*************************************");
+            });
+
+        }
+    })
 }
 
 // Here we will put a switch statement that will run each function based on the command
