@@ -183,7 +183,7 @@ function movieThis() {
 function doWhatItSays() {
     // code for doWhatItSays goes here
 
-    fs.readFile("random.txt", "utf8", function(error, data) {
+    fs.readFile("random.txt", "utf8", function (error, data) {
         if (error) {
             return console.log(error);
         }
@@ -193,16 +193,16 @@ function doWhatItSays() {
         var randomSearch = dataArray[1];
         // console.log(randomCommand);
         // console.log(randomSearch);
-        
+
         // check the command, then run the appropriate api
 
-        if (randomCommand === "spotify-this-song"){
-            
+        if (randomCommand === "spotify-this-song") {
+
             spotify.search({ type: 'track', query: randomSearch }, function (err, song) {
                 if (err) {
                     return console.log('Error occurred: ' + err);
                 }
-        
+
                 console.log("**********Spotify-This-Song**********");
                 console.log("Artist: " + song.tracks.items[0].artists[0].name);
                 console.log("Song Name: " + song.tracks.items[0].name);
@@ -210,6 +210,86 @@ function doWhatItSays() {
                 console.log("Album: " + song.tracks.items[0].album.name);
                 console.log("*************************************");
             });
+
+        }
+
+        else if (randomCommand === "movie-this") {
+            var queryUrl = "http://www.omdbapi.com/?t=" + randomSearch + "&y=&plot=short&apikey=trilogy";
+
+            // use axios to pull the data from the omdb api
+            axios.get(queryUrl).then(
+                function (response) {
+                    console.log("**********Movie-This**********");
+                    console.log("Title: " + response.data.Title);
+                    console.log("Year: " + response.data.Year);
+                    console.log("IMDB Rating: " + response.data.Ratings[0].Value);
+                    console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+                    console.log("Country Produced: " + response.data.Country);
+                    console.log("Language: " + response.data.Language);
+                    console.log("Plot: " + response.data.Plot);
+                    console.log("Actors: " + response.data.Actors);
+                })
+                .catch(function (error) {
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.log("---------------Data---------------");
+                        console.log(error.response.data);
+                        console.log("---------------Status---------------");
+                        console.log(error.response.status);
+                        console.log("---------------Status---------------");
+                        console.log(error.response.headers);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        // `error.request` is an object that comes back with details pertaining to the error that occurred.
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log("Error", error.message);
+                    }
+                    console.log(error.config);
+                });
+
+        }
+        else if (randomCommand === "concert-this") {
+            queryUrl = "https://rest.bandsintown.com/artists/" + randomSearch + "/events?app_id=codingbootcamp";
+            // console.log(queryURL);
+
+            // start our Axios call
+            axios.get(queryUrl).then(
+                function (response) {
+                    // create a for loop to display all the information in the data array that is returned from the API
+
+                    for (i = 0; i < response.data.length; i++) {
+                        console.log("**********Concert-This**********");
+                        console.log("Name of Venue: " + response.data[i].venue.name);
+                        console.log("Venue Locaction: " + response.data[i].venue.city + ", " + response.data[i].venue.region);
+                        // use moment to format the date
+                        var time = moment(response.data[i].datetime).format("MM/DD/YYYY");
+                        console.log("Date: " + time);
+                    }
+
+                })
+                .catch(function (error) {
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.log("---------------Data---------------");
+                        console.log(error.response.data);
+                        console.log("---------------Status---------------");
+                        console.log(error.response.status);
+                        console.log("---------------Status---------------");
+                        console.log(error.response.headers);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        // `error.request` is an object that comes back with details pertaining to the error that occurred.
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log("Error", error.message);
+                    }
+                    console.log(error.config);
+                });
 
         }
     })
