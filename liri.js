@@ -18,6 +18,8 @@ var Spotify = require('node-spotify-api');
 var fs = require("fs");
 // access the keys information for spotify
 var spotify = new Spotify(keys.spotify);
+// chalk package
+const chalk = require('chalk');
 
 
 
