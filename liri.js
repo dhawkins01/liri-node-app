@@ -1,5 +1,5 @@
 // Liri application project
-// You can find my current portfolio at dhawkinsjr.com
+// You can find my current portfolio at www.dhawkinsjr.com
 
 
 require("dotenv").config();
@@ -7,16 +7,14 @@ require("dotenv").config();
 // import the keys.js file
 var keys = require("./keys.js");
 
-// filesystem package
-var fs = require("fs");
-
 // grab the axios package
 var axios = require("axios");
 // moment package
 var moment = require('moment');
-
+// spotify package
+var Spotify = require('node-spotify-api');
 // access the keys information for spotify
-// var spotify = new Spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
 
 // liri.js needs to be able to hold the following commands:
 // - concert-this
@@ -27,31 +25,6 @@ var moment = require('moment');
 // make a variable to hold the command
 var command = process.argv[2];
 
-// make a variable to hold the search term
-var UserQuery = process.argv.slice(3).join(" ");
-
-// main program loop
-function userCommand(command, UserQuery) {
-    switch (command) {
-        case "concert-this":
-            concertThis();
-            break;
-
-        case "spotify-this-song":
-            spotifyThisSong();
-            break;
-
-        case "movie-this":
-            movieThis();
-            break;
-
-        case "do-what-it-says":
-            doWhatItSays(UserQuery);
-            break;
-    }
-}
-
-
 // Here we will create a function to run each command
 //////////////////////////////////////////////////////
 
@@ -59,66 +32,63 @@ function concertThis() {
     // code for concertThis functions goes here
 
     // create an empty variable with the band/artist name
-    var artist = UserQuery;
+    var artist = "";
 
-<<<<<<< HEAD
-   
-=======
     // for loop to handle artist names with more than one word
     for (i = 3; i < process.argv.length; i++) {
-        if (i > 3  && i < process.argv.length) {
+        if (i > 3 && i < process.argv.length) {
             artist = artist + "%20" + process.argv[i];
         }
         else {
             artist = process.argv[i];
         }
     }
->>>>>>> parent of f5f1633... spotify-this-song function complete
     // build the url for the bands in town api for axios
     queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
     // console.log(queryURL);
 
     // start our Axios call
     axios.get(queryUrl).then(
-        function(response) {
+        function (response) {
             // create a for loop to display all the information in the data array that is returned from the API
 
             for (i = 0; i < response.data.length; i++) {
                 console.log("**********Concert-This**********");
                 console.log("Name of Venue: " + response.data[i].venue.name);
                 console.log("Venue Locaction: " + response.data[i].venue.city + ", " + response.data[i].venue.region);
-                console.log("Date: " + response.data[i].datetime);
+                // use moment to format the date
+                var time = moment(response.data[i].datetime).format("MM/DD/YYYY");
+                console.log("Date: " + time);
             }
 
         })
-        .catch(function(error) {
+        .catch(function (error) {
             if (error.response) {
-              // The request was made and the server responded with a status code
-              // that falls out of the range of 2xx
-              console.log("---------------Data---------------");
-              console.log(error.response.data);
-              console.log("---------------Status---------------");
-              console.log(error.response.status);
-              console.log("---------------Status---------------");
-              console.log(error.response.headers);
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log("---------------Data---------------");
+                console.log(error.response.data);
+                console.log("---------------Status---------------");
+                console.log(error.response.status);
+                console.log("---------------Status---------------");
+                console.log(error.response.headers);
             } else if (error.request) {
-              // The request was made but no response was received
-              // `error.request` is an object that comes back with details pertaining to the error that occurred.
-              console.log(error.request);
+                // The request was made but no response was received
+                // `error.request` is an object that comes back with details pertaining to the error that occurred.
+                console.log(error.request);
             } else {
-              // Something happened in setting up the request that triggered an Error
-              console.log("Error", error.message);
+                // Something happened in setting up the request that triggered an Error
+                console.log("Error", error.message);
             }
             console.log(error.config);
-          });
-    
+        });
+
 
 
 }
 
 function spotifyThisSong() {
     // code for spotifyThisSong goes here
-<<<<<<< HEAD
 
     // variable to hold the song name
     var songName = "";
@@ -128,11 +98,10 @@ function spotifyThisSong() {
     }
     else {
         // create a for loop to handle multi word song names
-        for (i = 0; i < UserQuery.length; i++) {
-            songName += UserQuery[i];
+        for (i = 3; i < process.argv.length; i++) {
+            songName += process.argv[i] + " ";
 
         }
-        console.log(songName);
     }
     // add the single quotes to the song name as required by the spotify api
     songName = "'" + songName + "'";
@@ -150,25 +119,24 @@ function spotifyThisSong() {
         console.log("Album: " + data.tracks.items[0].album.name);
         console.log("*************************************");
     });
-=======
->>>>>>> parent of f5f1633... spotify-this-song function complete
 }
 
 function movieThis() {
     // code for movieThis goes here
 
     // create an empty variable for holding the movie name
-    var movieName = UserQuery;
+    var movieName = "";
 
     // if no movie name is entered, default to Mr Nobody
     if (process.argv[3] === undefined) {
         movieName = "Mr.Nobody";
     } // else build the movie name
     else {
-        
-        movieName = UserQuery;
+        // create a for loop to handle movie titles with more than one word
+        for (i = 3; i < process.argv.length; i++) {
+            movieName += process.argv[i] + "+";
+        }
     }
-    console.log(movieName);
     // build the url to access OMDB api with Axios
     var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
@@ -209,6 +177,23 @@ function movieThis() {
 
 function doWhatItSays() {
     // code for doWhatItSays goes here
-
 }
-userCommand(command, UserQuery);
+
+// Here we will put a switch statement that will run each function based on the command
+switch (command) {
+    case "concert-this":
+        concertThis();
+        break;
+
+    case "spotify-this-song":
+        spotifyThisSong();
+        break;
+
+    case "movie-this":
+        movieThis();
+        break;
+
+    case "do-what-it-says":
+        doWhatItSays();
+        break;
+}
