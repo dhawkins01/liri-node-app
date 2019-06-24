@@ -14,10 +14,9 @@ var fs = require("fs");
 var axios = require("axios");
 // moment package
 var moment = require('moment');
-// spotify package
-var Spotify = require('node-spotify-api');
+
 // access the keys information for spotify
-var spotify = new Spotify(keys.spotify);
+// var spotify = new Spotify(keys.spotify);
 
 // liri.js needs to be able to hold the following commands:
 // - concert-this
@@ -62,14 +61,26 @@ function concertThis() {
     // create an empty variable with the band/artist name
     var artist = UserQuery;
 
+<<<<<<< HEAD
    
+=======
+    // for loop to handle artist names with more than one word
+    for (i = 3; i < process.argv.length; i++) {
+        if (i > 3  && i < process.argv.length) {
+            artist = artist + "%20" + process.argv[i];
+        }
+        else {
+            artist = process.argv[i];
+        }
+    }
+>>>>>>> parent of f5f1633... spotify-this-song function complete
     // build the url for the bands in town api for axios
     queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
     // console.log(queryURL);
 
     // start our Axios call
     axios.get(queryUrl).then(
-        function (response) {
+        function(response) {
             // create a for loop to display all the information in the data array that is returned from the API
 
             for (i = 0; i < response.data.length; i++) {
@@ -80,33 +91,34 @@ function concertThis() {
             }
 
         })
-        .catch(function (error) {
+        .catch(function(error) {
             if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.log("---------------Data---------------");
-                console.log(error.response.data);
-                console.log("---------------Status---------------");
-                console.log(error.response.status);
-                console.log("---------------Status---------------");
-                console.log(error.response.headers);
+              // The request was made and the server responded with a status code
+              // that falls out of the range of 2xx
+              console.log("---------------Data---------------");
+              console.log(error.response.data);
+              console.log("---------------Status---------------");
+              console.log(error.response.status);
+              console.log("---------------Status---------------");
+              console.log(error.response.headers);
             } else if (error.request) {
-                // The request was made but no response was received
-                // `error.request` is an object that comes back with details pertaining to the error that occurred.
-                console.log(error.request);
+              // The request was made but no response was received
+              // `error.request` is an object that comes back with details pertaining to the error that occurred.
+              console.log(error.request);
             } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log("Error", error.message);
+              // Something happened in setting up the request that triggered an Error
+              console.log("Error", error.message);
             }
             console.log(error.config);
-        });
-
+          });
+    
 
 
 }
 
 function spotifyThisSong() {
     // code for spotifyThisSong goes here
+<<<<<<< HEAD
 
     // variable to hold the song name
     var songName = "";
@@ -138,6 +150,8 @@ function spotifyThisSong() {
         console.log("Album: " + data.tracks.items[0].album.name);
         console.log("*************************************");
     });
+=======
+>>>>>>> parent of f5f1633... spotify-this-song function complete
 }
 
 function movieThis() {
