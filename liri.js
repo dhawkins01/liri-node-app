@@ -60,12 +60,13 @@ function concertThis() {
             // create a for loop to display all the information in the data array that is returned from the API
 
             for (i = 0; i < response.data.length; i++) {
-                console.log("**********Concert-This**********");
-                console.log("Name of Venue: " + response.data[i].venue.name);
-                console.log("Venue Locaction: " + response.data[i].venue.city + ", " + response.data[i].venue.region);
+                console.log(chalk.bgRed("///////**********Concert-This**********///////"));
+                console.log(chalk.bgBlueBright("Name of Venue: " + response.data[i].venue.name));
+                console.log(chalk.bgBlueBright("Venue Locaction: " + response.data[i].venue.city + ", " + response.data[i].venue.region));
                 // use moment to format the date
                 var time = moment(response.data[i].datetime).format("MM/DD/YYYY");
-                console.log("Date: " + time);
+                console.log(chalk.bgBlueBright("Date: " + time));
+                console.log(chalk.bgRed("///////********************************///////\n"));
             }
 
         })
@@ -119,12 +120,12 @@ function spotifyThisSong() {
             return console.log('Error occurred: ' + err);
         }
 
-        console.log("**********Spotify-This-Song**********");
-        console.log("Artist: " + data.tracks.items[0].artists[0].name);
-        console.log("Song Name: " + data.tracks.items[0].name);
-        console.log("Preview: " + data.tracks.items[3].preview_url);
-        console.log("Album: " + data.tracks.items[0].album.name);
-        console.log("*************************************");
+        console.log(chalk.yellow.bold("///////**********Spotify-This-Song**********///////"));
+        console.log(chalk.bgYellow.black("Artist: " + data.tracks.items[0].artists[0].name));
+        console.log(chalk.bgYellow.black("Song Name: " + data.tracks.items[0].name));
+        console.log(chalk.bgYellow.black("Preview: " + data.tracks.items[3].preview_url));
+        console.log(chalk.bgYellow.black("Album: " + data.tracks.items[0].album.name));
+        console.log(chalk.yellow.bold("///////*************************************///////"));
     });
 }
 
@@ -150,15 +151,16 @@ function movieThis() {
     // use axios to pull the data from the omdb api
     axios.get(queryUrl).then(
         function (response) {
-            console.log("**********Movie-This**********");
-            console.log("Title: " + response.data.Title);
-            console.log("Year: " + response.data.Year);
-            console.log("IMDB Rating: " + response.data.Ratings[0].Value);
-            console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
-            console.log("Country Produced: " + response.data.Country);
-            console.log("Language: " + response.data.Language);
-            console.log("Plot: " + response.data.Plot);
-            console.log("Actors: " + response.data.Actors);
+            console.log(chalk.bgYellow.black("**********Movie-This**********"));
+            console.log(chalk.bgGreen.black("Title: " + response.data.Title));
+            console.log(chalk.bgGreen.black("Year: " + response.data.Year));
+            console.log(chalk.bgGreen.black("IMDB Rating: " + response.data.Ratings[0].Value));
+            console.log(chalk.bgGreen.black("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value));
+            console.log(chalk.bgGreen.black("Country Produced: " + response.data.Country));
+            console.log(chalk.bgGreen.black("Language: " + response.data.Language));
+            console.log(chalk.bgGreen.black("Plot: " + response.data.Plot));
+            console.log(chalk.bgGreen.black("Actors: " + response.data.Actors));
+            console.log(chalk.bgYellow.black("*******************************"));
         })
         .catch(function (error) {
             if (error.response) {
@@ -205,12 +207,12 @@ function doWhatItSays() {
                     return console.log('Error occurred: ' + err);
                 }
 
-                console.log("**********Spotify-This-Song**********");
-                console.log("Artist: " + song.tracks.items[0].artists[0].name);
-                console.log("Song Name: " + song.tracks.items[0].name);
-                console.log("Preview: " + song.tracks.items[3].preview_url);
-                console.log("Album: " + song.tracks.items[0].album.name);
-                console.log("*************************************");
+                console.log(chalk.yellow.bold("///////**********Spotify-This-Song**********///////"));
+                console.log(chalk.bgYellow.black("Artist: " + data.tracks.items[0].artists[0].name));
+                console.log(chalk.bgYellow.black("Song Name: " + data.tracks.items[0].name));
+                console.log(chalk.bgYellow.black("Preview: " + data.tracks.items[3].preview_url));
+                console.log(chalk.bgYellow.black("Album: " + data.tracks.items[0].album.name));
+                console.log(chalk.yellow.bold("///////*************************************///////"));
             });
 
         }
@@ -221,15 +223,16 @@ function doWhatItSays() {
             // use axios to pull the data from the omdb api
             axios.get(queryUrl).then(
                 function (response) {
-                    console.log("**********Movie-This**********");
-                    console.log("Title: " + response.data.Title);
-                    console.log("Year: " + response.data.Year);
-                    console.log("IMDB Rating: " + response.data.Ratings[0].Value);
-                    console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
-                    console.log("Country Produced: " + response.data.Country);
-                    console.log("Language: " + response.data.Language);
-                    console.log("Plot: " + response.data.Plot);
-                    console.log("Actors: " + response.data.Actors);
+                    console.log(chalk.bgYellow.black("**********Movie-This**********"));
+                    console.log(chalk.bgGreen.black("Title: " + response.data.Title));
+                    console.log(chalk.bgGreen.black("Year: " + response.data.Year));
+                    console.log(chalk.bgGreen.black("IMDB Rating: " + response.data.Ratings[0].Value));
+                    console.log(chalk.bgGreen.black("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value));
+                    console.log(chalk.bgGreen.black("Country Produced: " + response.data.Country));
+                    console.log(chalk.bgGreen.black("Language: " + response.data.Language));
+                    console.log(chalk.bgGreen.black("Plot: " + response.data.Plot));
+                    console.log(chalk.bgGreen.black("Actors: " + response.data.Actors));
+                    console.log(chalk.bgYellow.black("*******************************"));
                 })
                 .catch(function (error) {
                     if (error.response) {
@@ -263,12 +266,13 @@ function doWhatItSays() {
                     // create a for loop to display all the information in the data array that is returned from the API
 
                     for (i = 0; i < response.data.length; i++) {
-                        console.log("**********Concert-This**********");
-                        console.log("Name of Venue: " + response.data[i].venue.name);
-                        console.log("Venue Locaction: " + response.data[i].venue.city + ", " + response.data[i].venue.region);
+                        console.log(chalk.bgRed("**********Concert-This**********"));
+                        console.log(chalk.bgBlue("Name of Venue: " + response.data[i].venue.name));
+                        console.log(chalk.bgBlue("Venue Locaction: " + response.data[i].venue.city + ", " + response.data[i].venue.region));
                         // use moment to format the date
                         var time = moment(response.data[i].datetime).format("MM/DD/YYYY");
-                        console.log("Date: " + time);
+                        console.log(chalk.bgBlue("Date: " + time));
+                        console.log(chalk.bgRed("*********************************\n"));
                     }
 
                 })
