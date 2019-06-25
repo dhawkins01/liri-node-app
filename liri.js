@@ -208,10 +208,10 @@ function doWhatItSays() {
                 }
 
                 console.log(chalk.yellow.bold("///////**********Spotify-This-Song**********///////"));
-                console.log(chalk.bgYellow.black("Artist: " + data.tracks.items[0].artists[0].name));
-                console.log(chalk.bgYellow.black("Song Name: " + data.tracks.items[0].name));
-                console.log(chalk.bgYellow.black("Preview: " + data.tracks.items[3].preview_url));
-                console.log(chalk.bgYellow.black("Album: " + data.tracks.items[0].album.name));
+                console.log(chalk.bgYellow.black("Artist: " + song.tracks.items[0].artists[0].name));
+                console.log(chalk.bgYellow.black("Song Name: " + song.tracks.items[0].name));
+                console.log(chalk.bgYellow.black("Preview: " + song.tracks.items[3].preview_url));
+                console.log(chalk.bgYellow.black("Album: " + song.tracks.items[0].album.name));
                 console.log(chalk.yellow.bold("///////*************************************///////"));
             });
 
