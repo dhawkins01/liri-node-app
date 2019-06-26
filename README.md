@@ -4,7 +4,7 @@
 liri-node-app is a command line program that pulls info from the Online Movie Database API, Spotify API, and Bands in Town API.
 
 # Overview
-This application uses node with the axios npm package to pull data from the bands in town API and and Open Movie Database, and the spotify npm package, to get data based on a command entered, and a search term. 
+This application uses node with the axios npm package to pull data from the bands in town API and and Open Movie Database, and the spotify npm package, to get data based on a command entered and a search term. 
 
 # Instruction
 The liri-node-app takes in four main parameters from the command line: 
@@ -23,7 +23,7 @@ Output:
 ![example-image](example.png)
 
 # Demonstration
-Video or gif demonstration images will go here
+[![IMAGE ALT TEXT HERE](video.png)](https://www.youtube.com/watch?v=nMo8jLZJB-0&t)
 
 # Links
 Links with a deployed version of the app will go here
