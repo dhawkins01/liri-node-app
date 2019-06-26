@@ -26,10 +26,18 @@ Output:
 [![IMAGE ALT TEXT HERE](video.png)](https://www.youtube.com/watch?v=nMo8jLZJB-0&t)
 
 # Links
-Links with a deployed version of the app will go here
+Check out this project on [GitHub](https://github.com/dhawkins01/liri-node-app)
 
 # Technologies Used
-List of technologies used will go here
+* JavaScript
+* Node.js
+* These NPM Packages
+  * Axios
+  * Node-Spotify-API
+  * Chalk 
 
 # About Me
-About me section will go here
+My name is Dave Hawkins and I am a fullstack web developer. More information about me can be found here:
+
+* [My Github](https://github.com/dhawkins01)
+* [My Portfolio](https://dhawkinsjr.com)
