@@ -23,7 +23,7 @@
     "dotenv": "^8.0.0",
     "inquirer": "^6.4.1",
     "lodash": "^4.17.20",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-spotify-api": "^1.1.1"
   }
 }
